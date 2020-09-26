@@ -10,7 +10,7 @@ Fork of Cryptyc's ladder server for SC2 API. Used for the CMPUT 350 SC2 tourname
 
 ## Windows
 
-Download and install [Visual Studio 2017](https://www.visualstudio.com/downloads/) if you need it.
+Download and install [Visual Studio 2019](https://www.visualstudio.com/downloads/) if you need it.
 
 ```bat
 :: Clone the project
@@ -22,17 +22,11 @@ $ mkdir build
 $ cd build
 
 :: Generate VS solution.
-$ cmake ../ -G "Visual Studio 15 2017 Win64"
+$ cmake ../ -G "Visual Studio 16 2019"
 
 :: Build the project using Visual Studio.
 $ start Sc2LadderServer.sln
 ```
-
-Optional: If you want to use Visual Studio 2019 instead, you'll need to replace the `cmake` command above with:
-```bat
-$ cmake ../ -G "Visual Studio 16 2019"
-```
-and then make the code change described [here](https://github.com/Blizzard/s2client-api/issues/319).
 
 ### Linux
 ```bash
@@ -56,9 +50,6 @@ $ make
 # Get the project.
 $ git clone --recursive https://github.com/solinas/Sc2LadderServer.git
 $ cd Sc2LadderServer
-
-# Apply compilation fixes for OS X.
-$ git apply hacks/civetweb_compilation_fix.patch
 
 # Create build directory.
 $ mkdir build && cd build
