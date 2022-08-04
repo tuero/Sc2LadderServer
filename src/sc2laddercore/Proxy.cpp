@@ -296,6 +296,9 @@ void Proxy::gameUpdate()
 
     while (m_gameStatus == SC2APIProtocol::Status::in_game || m_gameStatus == SC2APIProtocol::Status::init_game || m_gameStatus == SC2APIProtocol::Status::launched)
     {
+        // Delay on first frame to let bots + server catch up
+        bool delay_flag = false;
+        if (m_currentGameLoop < 1) { sc2::SleepFor(100); delay_flag = true; }
         // If we know that the bot crashed we surrender for it.
         if (m_result == ExitCase::BotCrashed || m_result == ExitCase::BotStepTimeout || m_result == ExitCase::GameTimeOver)
         {
@@ -378,8 +381,10 @@ void Proxy::gameUpdate()
         }
         else
         {
+            // Need to undo const 
             const uint32_t maxStepTime = getMaxStepTime();  // ms
-            const auto timeSinceLastResponse = std::chrono::duration_cast<std::chrono::milliseconds>(clock::now() - m_lastResponseSendTime).count();
+            auto timeSinceLastResponse = std::chrono::duration_cast<std::chrono::milliseconds>(clock::now() - m_lastResponseSendTime).count();
+            if (delay_flag) { timeSinceLastResponse = static_cast<int>(maxStepTime) / 10; }
             if (!m_botConfig.Debug && !m_realTimeMode && maxStepTime && timeSinceLastResponse > static_cast<int>(maxStepTime))
             {
                 PrintThread{} << m_botConfig.BotName << " : bot is too slow. " << timeSinceLastResponse << " milliseconds passed. Max step time: " << static_cast<int>(maxStepTime) << " milliseconds." << std::endl;

@@ -1,0 +1,25 @@
+{
+    "Bots": {
+        "ProtossBot": {
+            "Race": "Protoss",
+            "Type": "BinaryCpp",
+            "RootPath": "<PATH_TO_PROJECT>/build/bin/",
+            "FileName": "YOUR_BOT.exe",
+            "Args": ""
+        },
+        "TerranBot": {
+            "Race": "Terran",
+            "Type": "BinaryCpp",
+            "RootPath": "<PATH_TO_PROJECT>/build/bin/",
+            "FileName": "YOUR_BOT.exe",
+            "Args": ""
+        },
+        "ZergBot": {
+            "Race": "Zerg",
+            "Type": "BinaryCpp",
+            "RootPath": "<PATH_TO_PROJECT>/build/bin/",
+            "FileName": "YOUR_BOT.exe",
+            "Args": ""
+        }
+    }
+}
