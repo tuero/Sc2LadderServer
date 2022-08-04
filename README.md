@@ -75,25 +75,57 @@ Alternatively, you could opt to symlink the folder of the submodule in question 
 Make sure you've installed the maps, as per the directions from [Blizzard's SC2Client-Proto project](https://github.com/Blizzard/s2client-proto#map-packs).
    
 ### Configuration files
-All configuration files should be placed in the project root directory.
+A `LadderManager.json` and `LadderBots.json` are required to run the ladder server. 
+Examples of these are included, but should be moved ot the same directory as the built `Sc2LadderServer` executable.
 
 ##### LadderManager.json
-Create a file called `LadderManager.json` It should be in json format, with entries as described in the table below.
- 
-| Config Entry Name | Description |
-|---|---|
-| `ErrorListFile`           | Place to store games where errors have occured |
-| `BotConfigFile`           | Location of the json file defining the bots |
-| `MaxGameTime`             | Maximum length of game |
-| `CommandCenterDirectory`  | Directory to read .ccbot command center config files |
-| `LocalReplayDirectory`    | Directory to store local replays |
-| `EnableReplayUpload`      | True/False if replays and results should be uploaded |
-| `UploadResultLocation`    | Location of remote server to store results |
-| `ResultsLogFile`          | Local file to store results in json format |
-| `PlayerIdFile`            | Location of file to store player IDs.  |
+This will detail the general settings for the tournament. 
+The only field which should be changed are the `Map` entry, which lists an array of map names (this should match the same string names as listed in your game's map directory).
 
-##### BotConfigFile.json
-Create a `BotConfigFile.json`  file that will describe the roster of bots and their required attributes.  It should also contain an array of maps to be used.  For each map you want the bots to play on, add its name into this array, **including** the `.SC2Map` file ending.
+##### LadderBots.json
+This lists the details for each bot you wish to have in your tournament. 
+Each entry should include the bot name, full path to the bots executable directory, and the name of the bot executable. 
+Leave the bot type as `binarycpp`. 
+An example is given below:
+```
+"ProtossBot": {		// String name of your bot
+    "Race": "Protoss", // Race of your bot, choose from [Protoss|Terran|Zerg]
+    "Type": "BinaryCpp", // Type (BinaryCpp or Python), leave as BinaryCpp
+    "RootPath": "<PATH_TO_PROJECT>/build/bin/", // Path to the bot file
+    "FileName": "YOUR_BOT.exe", // Name of the bot file
+    "Args": "", // Optional command line arguments that gets passed to the bot file.
+},
+```
+
+## Running the Ladder Server
+Windows:
+```bat
+$ .\Sc2LadderServer.exe
+```
+
+OS X:
+```bash
+$ ./Sc2LadderServer -e /Applications/StarCraft\ II/Verions/Base<BASE-NUMBER>/SC2.app/Contents/MacOS/SC2
+```
+Where `<BASE-NUMBER>` is the version as specified by the path on your system.
+
+Linux:
+```bash
+$ ./Sc2LadderServer
+```
+
+This will create `playerids` and `matchuplist` file if they do not exist. 
+`matchuplist` will list all the matchups which are queued to run. 
+If a matchup completes, it is removed from the list. 
+If the ladder manager prematurely exits and you restart the executable, it will resume with the matches still left in the `matchuplist` file.
+If you want to start fresh, remove `playerids` and `matchuplist`.
+
+**Note:** In order for replays to save, you may need to manually create the directory as listed in `LadderManager.json`.
+As an example, if `LadderManager.json` and `LadderBots.json` from the project root directory are moved to the executable directory `./build/bin/`, 
+then make a directory `./build/bin/Replays`.
+
+## Viewing Replays
+By default, finished games will be placed into the `./Replays` folder.
 
 ## Building your own bot
 In order to work with the ladder manager, your bot's `main()` should call `RunBot()` from LadderInterface.h. [DebugBot](https://github.com/solinas/Sc2LadderServer/tree/master/tests/debugbot) can be used as an example for how to do this. However, do not submit a copy of this entire repository as your final project. If you're unsure how to include the SC2 API headers and libraries, please take a look at these [instructions](https://github.com/davechurchill/commandcenter#developer-install--compile-instructions-windows).
