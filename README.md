@@ -10,11 +10,11 @@ Fork of Cryptyc's ladder server for SC2 API. Used for the CMPUT 350 SC2 tourname
 
 ## Windows
 
-Download and install [Visual Studio 2019](https://www.visualstudio.com/downloads/) if you need it.
+Download and install [Visual Studio 2022](https://www.visualstudio.com/downloads/) if you need it.
 
 ```bat
 :: Clone the project
-$ git clone --recursive https://github.com/solinas/Sc2LadderServer.git
+$ git clone --recursive https://github.com/tuero/Sc2LadderServer.git
 $ cd Sc2LadderServer
 
 :: Create build directory.
@@ -22,7 +22,7 @@ $ mkdir build
 $ cd build
 
 :: Generate VS solution.
-$ cmake ../ -G "Visual Studio 16 2019"
+$ cmake ../ -G "Visual Studio 17 2022"
 
 :: Build the project using Visual Studio.
 $ start Sc2LadderServer.sln
@@ -31,7 +31,7 @@ $ start Sc2LadderServer.sln
 ### Linux
 ```bash
 # Get the project.
-$ git clone --recursive https://github.com/solinas/Sc2LadderServer.git
+$ git clone --recursive https://github.com/tuero/Sc2LadderServer.git
 $ cd Sc2LadderServer
 
 # Create build directory.
@@ -48,7 +48,7 @@ $ make
 ### OS X
 ```bash
 # Get the project.
-$ git clone --recursive https://github.com/solinas/Sc2LadderServer.git
+$ git clone --recursive https://github.com/tuero/Sc2LadderServer.git
 $ cd Sc2LadderServer
 
 # Create build directory.
@@ -128,7 +128,7 @@ then make a directory `./build/bin/Replays`.
 By default, finished games will be placed into the `./Replays` folder.
 
 ## Building your own bot
-In order to work with the ladder manager, your bot's `main()` should call `RunBot()` from LadderInterface.h. [DebugBot](https://github.com/solinas/Sc2LadderServer/tree/master/tests/debugbot) can be used as an example for how to do this. However, do not submit a copy of this entire repository as your final project. If you're unsure how to include the SC2 API headers and libraries, please take a look at these [instructions](https://github.com/davechurchill/commandcenter#developer-install--compile-instructions-windows).
+In order to work with the ladder manager, your bot's `main()` should call `RunBot()` from LadderInterface.h. [DebugBot](https://github.com/tuero/Sc2LadderServer/tree/master/tests/debugbot) can be used as an example for how to do this. However, do not submit a copy of this entire repository as your final project. If you're unsure how to include the SC2 API headers and libraries, please take a look at these [instructions](https://github.com/davechurchill/commandcenter#developer-install--compile-instructions-windows).
 
 [SC2 API Reference and Tutorials](https://blizzard.github.io/s2client-api/)
 
