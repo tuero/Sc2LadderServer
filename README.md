@@ -105,7 +105,7 @@ $ .\Sc2LadderServer.exe
 
 OS X:
 ```bash
-$ ./Sc2LadderServer -e /Applications/StarCraft\ II/Verions/Base<BASE-NUMBER>/SC2.app/Contents/MacOS/SC2
+$ ./Sc2LadderServer -e /Applications/StarCraft\ II/Versions/Base<BASE-NUMBER>/SC2.app/Contents/MacOS/SC2
 ```
 Where `<BASE-NUMBER>` is the version as specified by the path on your system.
 
